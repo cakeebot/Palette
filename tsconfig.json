@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": false,
+    "noImplicitUseStrict": true,
+    "strict": false,
+
+    "moduleResolution": "node",
+    "module": "commonjs"
+  }
+}
