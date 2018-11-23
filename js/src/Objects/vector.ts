@@ -8,3 +8,17 @@ export class Position2D {
     this.y = y
   }
 }
+
+export class Position3D {
+  x: number
+  y: number
+  z: number
+
+  constructor(x: number, y: number, z: number) {
+
+  }
+}
+
+//alternate coord type
+export type Coordinates = [number, number]
+export type Coords3D = [number, number, number]

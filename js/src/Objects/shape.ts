@@ -1,11 +1,11 @@
-import { Position2D } from './vector';
+import { Position2D, Coordinates } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
 
 export class Shape {
   color: Color
-  position: Position2D;
+  position: Position2D | Coordinates
   private index: number
   exists: boolean = true
 
