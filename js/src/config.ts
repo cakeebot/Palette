@@ -1,9 +1,9 @@
-import { Shape } from "./Objects/shapes";
+import { Shape } from "./Objects/shape";
 
 const Config = {
   objects: <Shape[]> [],
 
-  gravity: <number>
+  gravity: <number[]> []  
 }
 
 export default Config

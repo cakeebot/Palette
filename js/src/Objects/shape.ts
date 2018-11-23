@@ -6,7 +6,7 @@ class Shape {
   color: Color
   position: Position2D
   velocity: Velocity2D = {
-    x: 0
+    x: 0,
     y: 0
   }
 }
