@@ -1,4 +1,4 @@
-import { Shape } from "./src/Objects/shapes";
+import { Shape } from "./src/Objects/shape";
 import { Color } from "./src/Objects/color";
 
 const testShape = new Shape()
