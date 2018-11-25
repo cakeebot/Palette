@@ -2,6 +2,11 @@ import { Position2D, Coordinates } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
+import { doSelfGravity } from '../Physics/Gravity'
+
+export enum triType {
+  equilateral = "equ"
+}
 
 export class Shape {
   color: Color
@@ -11,6 +16,9 @@ export class Shape {
 
   doGravity: boolean = true
   doSelfGravity: boolean = true
+
+  gravityFactor: number = Config.gravity
+  
   velocity: Velocity2D = {
     x: 0,
     y: 0
@@ -30,7 +38,7 @@ export class Shape {
 
   update = function () {
     if (this.doGravity && this.doSelfGravity) {
-
+      doSelfGravity(this)
     }
   }
 
@@ -59,8 +67,22 @@ export class Shape {
 export class Circle extends Shape {
   radius: number
   
-  constructor (radius: number | undefined, color: Color = undefined, position: Position2D = undefined) {
+  constructor (radius: number, color: Color = undefined, position: Position2D = undefined) {
     super(color, position)    
-    this.radius
+    this.radius = radius
   }
+}
+
+export class Square extends Shape {
+  side: number
+
+  constructor(side: number) {
+    super()
+    this.side = side
+  }
+}
+
+export class Triangle extends Shape {
+  side: number
+  type: triType
 }
