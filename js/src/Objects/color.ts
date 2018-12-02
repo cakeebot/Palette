@@ -3,6 +3,8 @@ export class Color {
   g: number
   b: number
 
+  render: string
+
   constructor (r: number, g: number, b: number) {
     if (r > 255 || g > 255 || b > 255) {
       throw new Error("Color: Max value is 255!")
@@ -10,6 +12,8 @@ export class Color {
       this.r = r
       this.g = g
       this.b = b
+
+      this.render = `rgb(${r},${g},${b})`
     }
   }
 }
@@ -26,4 +30,8 @@ export const Colors = {
   yellow: new Color(255, 255, 0),
   pink: new Color(255, 0, 255),
   purple: new Color(128, 0, 128)
+}
+
+export function setBGColor (color: Color) {
+  
 }

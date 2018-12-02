@@ -3,9 +3,11 @@ import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
 import { doSelfGravity } from '../Physics/Gravity'
+import { ctx } from '../GetCanvas';
 
 export enum triType {
-  equilateral = "equ"
+  equilateral = "eqi"
+
 }
 
 export class Shape {
@@ -25,7 +27,7 @@ export class Shape {
   }
 
   config = {
-    doGrav: function () {
+    doGrav: function (): void {
       if (this.doGravity) {
         this.doGravity = false
         this.doSelfGravity = false
@@ -36,13 +38,13 @@ export class Shape {
     }
   }
 
-  update = function () {
+  update = function (): void {
     if (this.doGravity && this.doSelfGravity) {
       doSelfGravity(this)
     }
   }
 
-  delete = function () {
+  delete = function (): void {
     this.color = undefined
     this.position = undefined
     this.exists = false
@@ -66,20 +68,43 @@ export class Shape {
 
 export class Circle extends Shape {
   radius: number
+  diameter: number
+
+  public render(): void {
+    ctx.arc()
+  }
   
   constructor (radius: number, color: Color = undefined, position: Position2D = undefined) {
     super(color, position)    
     this.radius = radius
+    this.diameter = radius * 2
   }
 }
 
 export class Square extends Shape {
   side: number
+  fill: boolean = true
 
-  constructor(side: number) {
+  public render(): void {
+    ctx.fillStyle = this.color.render
+
+    if (this.fill) {
+      ctx.fillRect(this.position[0], this.position[1], this.side, this.side)
+    } else{
+      ctx.rect(this.position[0], this.position[1], this.side, this.side)
+    }
+  }
+
+  constructor(side: number, fill: boolean) {
     super()
     this.side = side
+    this.fill = fill
   }
+}
+
+export class Rectangle extends Shape {
+  height: number
+  length: number
 }
 
 export class Triangle extends Shape {
