@@ -4,9 +4,7 @@ const Config = {
   objects: <Shape[]> [],
   deletedObjects: <Shape[]> [],
 
-  gravity: <number> 0.05,
-  
-  do3Dmode: <boolean> false
+  gravity: <number[]> []  
 }
 
 export default Config

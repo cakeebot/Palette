@@ -3,12 +3,6 @@ import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
 import { doSelfGravity } from '../Physics/Gravity'
-import { ctx } from '../GetCanvas';
-
-export enum triType {
-  equilateral = "eqi"
-
-}
 
 export class Shape {
   color: Color
