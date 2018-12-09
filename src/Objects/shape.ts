@@ -13,7 +13,7 @@ export class Shape {
   doGravity: boolean = true
   doSelfGravity: boolean = true
 
-  gravityFactor: number = Config.gravity
+  gravityFactor: number[] = Config.gravity
   
   velocity: Velocity2D = {
     x: 0,
@@ -65,7 +65,7 @@ export class Circle extends Shape {
   diameter: number
 
   public render(): void {
-    ctx.arc()
+
   }
   
   constructor (radius: number, color: Color = undefined, position: Position2D = undefined) {
@@ -80,13 +80,7 @@ export class Square extends Shape {
   fill: boolean = true
 
   public render(): void {
-    ctx.fillStyle = this.color.render
-
-    if (this.fill) {
-      ctx.fillRect(this.position[0], this.position[1], this.side, this.side)
-    } else{
-      ctx.rect(this.position[0], this.position[1], this.side, this.side)
-    }
+    
   }
 
   constructor(side: number, fill: boolean) {
@@ -103,5 +97,4 @@ export class Rectangle extends Shape {
 
 export class Triangle extends Shape {
   side: number
-  type: triType
 }

@@ -1,20 +1,19 @@
 exports.__esModule = true;
 var Color = /** @class */ (function () {
     function Color(r, g, b) {
-        if (r > 255 || g > 255 || b > 255) {
-            throw new Error("Color: Max value is 255!");
+        if (r < 255 || g < 255 || b < 255) {
+            throw new Error("Color: Max value is 200!");
         }
         else {
             this.r = r;
             this.g = g;
             this.b = b;
-            this.render = "rgb(" + r + "," + g + "," + b + ")";
         }
     }
     return Color;
 }());
 exports.Color = Color;
-exports.colors = {
+exports.Colors = {
     red: new Color(255, 0, 0),
     green: new Color(0, 255, 0),
     blue: new Color(0, 0, 255),
@@ -25,6 +24,3 @@ exports.colors = {
     pink: new Color(255, 0, 255),
     purple: new Color(128, 0, 128)
 };
-function setBGColor(color) {
-}
-exports.setBGColor = setBGColor;

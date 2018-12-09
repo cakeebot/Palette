@@ -5,6 +5,8 @@
     "strict": false,
 
     "moduleResolution": "node",
-    "module": "commonjs"
+    "module": "commonjs",
+    "outDir": "./js",
+    "rootDir": "./src"
   }
 }

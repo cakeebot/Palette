@@ -1,0 +1,10 @@
+exports.__esModule = true;
+var shape_1 = require("./src/Objects/shape");
+var color_1 = require("./src/Objects/color");
+var testShape = new shape_1.Shape(color_1.Colors.blue, new Position2D(300, 200));
+var testColor = new color_1.Color(255, 255, 255);
+console.log(testShape);
+console.log(testColor);
+console.log(Config.objects);
+var testCircle = new Circle(10, color_1.Colors.red, new Position2D(400, 404));
+console.log(testCircle);
