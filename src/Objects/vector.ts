@@ -22,5 +22,8 @@ export class Position3D {
 }
 
 //alternate coord type
-export type Coordinates = [number, number]
+export interface Coords2D {
+  x: number
+  y: number
+}
 export type Coords3D = [number, number, number]
