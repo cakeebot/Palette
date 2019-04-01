@@ -16,22 +16,18 @@ export class Color {
       this.render = `rgb(${r},${g},${b})`
     }
   }
-}
 
-export const colors = {
-  red: new Color(255, 0, 0),
-  green: new Color(0, 255, 0),
-  blue: new Color(0, 0, 255),
+  static readonly colors = {
+    red: new Color(255, 0, 0),
+    green: new Color(0, 255, 0),
+    blue: new Color(0, 0, 255),
 
-  white: new Color(255, 255, 255),
-  black: new Color(0, 0, 0),
-  gray: new Color(128, 128, 128),
+    white: new Color(255, 255, 255),
+    black: new Color(0, 0, 0),
+    gray: new Color(128, 128, 128),
 
-  yellow: new Color(255, 255, 0),
-  pink: new Color(255, 0, 255),
-  purple: new Color(128, 0, 128)
-}
-
-export function setBGColor (color: Color) {
-  
+    yellow: new Color(255, 255, 0),
+    pink: new Color(255, 0, 255),
+    purple: new Color(128, 0, 128)
+  }
 }

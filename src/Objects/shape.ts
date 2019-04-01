@@ -6,15 +6,20 @@ import { doSelfGravity } from '../Physics/Gravity'
 import { ctx } from '../getCanvas';
 
 // Interfaces
-interface strokeType {
+export interface StrokeType {
   color: Color
   width: number
 }
 
 // Shape Class
 export abstract class Shape {
+  /*
+    INHERITED ATTRIBUTES
+  */
+
+  // Attributes
   color: Color
-  stroke: strokeType
+  stroke: StrokeType
   filled: boolean
 
   private index: number
@@ -31,12 +36,13 @@ export abstract class Shape {
     y: 0
   }
 
+
+  // Inherited Functions
   update = function (): void {
     if (this.doGravity && this.doSelfGravity) {
       doSelfGravity(this)
     }
   }
-
   delete = function (): void {
     this.color = undefined
     this.position = undefined
@@ -50,10 +56,12 @@ export abstract class Shape {
     Config.deletedObjects.push(this)
   }
 
+
+  // Constructor
   constructor (
     color?: Color,
     filled: boolean = true,
-    stroke?: strokeType,
+    stroke?: StrokeType,
     position?: Position2D, 
     noGrav: boolean = false
   ) {
@@ -73,6 +81,14 @@ export abstract class Shape {
     Config.objects.push(this)
     this.index = Config.objects.indexOf(this)
   }
+
+
+
+  /*
+    STATIC VALUES
+  */
+  
+
 }
 
 
@@ -89,7 +105,7 @@ export class Circle extends Shape {
     radius?: number,
     color?: Color,
     filled: boolean = true,
-    stroke?: strokeType,
+    stroke?: StrokeType,
     position: Position2D = undefined, 
     noGrav: boolean = false
   ) {
@@ -128,7 +144,7 @@ export class Square extends Shape {
     side?: number,
     color?: Color,
     filled: boolean = true,
-    stroke?: strokeType,
+    stroke?: StrokeType,
     position?: Position2D,
     noGrav: boolean = false 
   ) {
@@ -169,7 +185,7 @@ export class Rectangle extends Shape {
     height?: number,
     color?: Color,
     filled: boolean = true,
-    stroke?: strokeType,
+    stroke?: StrokeType,
     position?: Position2D,
     noGrav: boolean = false
   ) {
