@@ -52,9 +52,9 @@ export abstract class Shape {
 
   constructor (
     color?: Color,
-    position?: Position2D, 
     filled: boolean = true,
     stroke?: strokeType,
+    position?: Position2D, 
     noGrav: boolean = false
   ) {
     this.color = color
@@ -86,14 +86,14 @@ export class Circle extends Shape {
   }
   
   constructor (
-    radius: number,
-    color: Color = undefined, 
-    position: Position2D = undefined, 
+    radius?: number,
+    color?: Color,
     filled: boolean = true,
     stroke?: strokeType,
+    position: Position2D = undefined, 
     noGrav: boolean = false
   ) {
-    super(color, position, filled, stroke, noGrav)    
+    super(color, filled, stroke, position, noGrav)    
 
     this.radius = radius
     this.diameter = radius * 2
@@ -127,12 +127,12 @@ export class Square extends Shape {
   constructor (
     side?: number,
     color?: Color,
-    position?: Position2D,
     filled: boolean = true,
     stroke?: strokeType,
+    position?: Position2D,
     noGrav: boolean = false 
   ) {
-    super(color, position, filled, stroke, noGrav)    
+    super(color, filled, stroke, position, noGrav)    
 
     this.side = side
     this.filled = filled
@@ -165,15 +165,15 @@ export class Rectangle extends Shape {
   }
 
   constructor (
-    width: number,
-    height: number,
-    color: Color = undefined, 
-    position: Position2D = undefined, 
+    width?: number,
+    height?: number,
+    color?: Color,
     filled: boolean = true,
     stroke?: strokeType,
+    position?: Position2D,
     noGrav: boolean = false
   ) {
-    super(color, position, filled, stroke, noGrav)    
+    super(color, filled, stroke, position, noGrav)    
 
     this.width = width
     this.height = height
