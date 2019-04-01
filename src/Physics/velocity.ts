@@ -1,11 +1,29 @@
-export interface Velocity2D {
+export class Velocity2D {
   x: number
   y: number
+
+  constructor(
+    x: number,
+    y: number
+  ) {
+    this.x = x
+    this.y = y
+  }
 }
 
-export interface Velocity3D {
+export class Velocity3D {
   x: number
   y: number
   z: number
+
+  constructor(
+    x: number,
+    y: number,
+    z: number
+  ) {
+    this.x = x
+    this.y = y
+    this.z = z
+  }
 }
 

@@ -1,1 +1,1 @@
-must have browserify installed to finish compiling
+Compiler requires Browserify and TSify

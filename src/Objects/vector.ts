@@ -1,4 +1,3 @@
-
 export class Position2D {
   x: number
   y: number
@@ -21,9 +20,5 @@ export class Position3D {
   }
 }
 
-//alternate coord type
-export interface Coords2D {
-  x: number
-  y: number
-}
+export type Coords2D = [number, number]
 export type Coords3D = [number, number, number]

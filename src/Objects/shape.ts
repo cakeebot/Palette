@@ -10,7 +10,7 @@ export class Shape {
   stroke: Color
   fill: boolean
 
-  position: Position2D | Coords2D
+  position: Position2D
   private index: number
   exists: boolean = true
 
@@ -48,7 +48,7 @@ export class Shape {
     position: Position2D = undefined, 
     fill: boolean = true,
     stroke?: Color,
-    noGrav: boolean = false,
+    noGrav: boolean = false
   ) {
     this.color = color
     this.position = position
@@ -61,6 +61,14 @@ export class Shape {
     }
 
     this.fill = fill
+    
+    if ( !noGrav ) {
+      this.doGravity = false
+      this.doSelfGravity = false
+    } else {
+      this.doGravity = true
+      this.doSelfGravity = true
+    }
 
     Config.objects.push(this)
     this.index = Config.objects.indexOf(this)
@@ -75,8 +83,16 @@ export class Circle extends Shape {
 
   }
   
-  constructor (radius: number, color: Color = undefined, position: Position2D = undefined) {
-    super(color, position)    
+  constructor (
+    radius: number,
+    color: Color = undefined, 
+    position: Position2D = undefined, 
+    fill: boolean = true,
+    stroke?: Color,
+    noGrav: boolean = false
+  ) {
+    super(color, position, fill, stroke, noGrav)    
+
     this.radius = radius
     this.diameter = radius * 2
   }
@@ -106,9 +122,16 @@ export class Square extends Shape {
     }
   }
 
-  constructor(side: number, fill: boolean = true) {
-    super()
-    
+  constructor (
+    side: number,
+    color: Color = undefined, 
+    position: Position2D = undefined, 
+    fill: boolean = true,
+    stroke?: Color,
+    noGrav: boolean = false 
+  ) {
+    super(color, position, fill, stroke, noGrav)    
+
     this.side = side
     this.fill = fill
   }
@@ -138,8 +161,16 @@ export class Rectangle extends Shape {
       )
     }
   }
-  constructor (width: number, height: number) {
-    super()
+  constructor (
+    width: number,
+    height: number,
+    color: Color = undefined, 
+    position: Position2D = undefined, 
+    fill: boolean = true,
+    stroke?: Color,
+    noGrav: boolean = false
+  ) {
+    super(color, position, fill, stroke, noGrav)    
 
     this.width = width
     this.height = height
@@ -147,5 +178,6 @@ export class Rectangle extends Shape {
 }
 
 export class Triangle extends Shape {
-  side: number
+  base: number
+  height: number
 }
