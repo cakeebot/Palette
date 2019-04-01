@@ -1,10 +1,14 @@
 import { Shape } from "./Objects/shape";
 
-const Config = {
-  objects: <Shape[]> [],
-  deletedObjects: <Shape[]> [],
+module Config {
+  export let objects: Shape[] = []
+  export let deletedObjects: Shape[] = []
 
-  gravity: <number[]> []  
+  export let gravity: number[] = []
+
+  module engineSettings {
+    export let doDeletedObjects: boolean = true // Save deleted objects to deletedObjects[]
+  }
 }
 
 export default Config
