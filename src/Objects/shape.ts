@@ -3,22 +3,29 @@ import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
 import { doSelfGravity } from '../Physics/Gravity'
-import { ctx } from '../GetCanvas';
+import { ctx } from '../getCanvas';
 
-export class Shape {
+// Interfaces
+interface strokeType {
   color: Color
-  stroke: Color
-  fill: boolean
+  width: number
+}
 
-  position: Position2D
+// Shape Class
+export abstract class Shape {
+  color: Color
+  stroke: strokeType
+  filled: boolean
+
   private index: number
-  exists: boolean = true
+  private exists: boolean = true
 
   doGravity: boolean = true
   doSelfGravity: boolean = true
 
   gravityFactor: number[] = Config.gravity
   
+  position: Position2D
   velocity: Velocity2D = {
     x: 0,
     y: 0
@@ -44,23 +51,16 @@ export class Shape {
   }
 
   constructor (
-    color: Color = undefined, 
-    position: Position2D = undefined, 
-    fill: boolean = true,
-    stroke?: Color,
+    color?: Color,
+    position?: Position2D, 
+    filled: boolean = true,
+    stroke?: strokeType,
     noGrav: boolean = false
   ) {
     this.color = color
     this.position = position
-    
-    // set stroke
-    if ( typeof stroke === 'undefined' ) {
-      this.stroke = color
-    } else {
-      this.stroke = stroke
-    }
 
-    this.fill = fill
+    this.filled = filled
     
     if ( !noGrav ) {
       this.doGravity = false
@@ -75,6 +75,8 @@ export class Shape {
   }
 }
 
+
+// Basic Shapes
 export class Circle extends Shape {
   radius: number
   diameter: number
@@ -87,11 +89,11 @@ export class Circle extends Shape {
     radius: number,
     color: Color = undefined, 
     position: Position2D = undefined, 
-    fill: boolean = true,
-    stroke?: Color,
+    filled: boolean = true,
+    stroke?: strokeType,
     noGrav: boolean = false
   ) {
-    super(color, position, fill, stroke, noGrav)    
+    super(color, position, filled, stroke, noGrav)    
 
     this.radius = radius
     this.diameter = radius * 2
@@ -103,9 +105,9 @@ export class Square extends Shape {
 
   public render(): void {
     ctx.fillStyle = this.color.render
-    ctx.strokeStyle = this.stroke.render
+    ctx.strokeStyle = this.stroke.color.render
 
-    if( this.fill ) {
+    if( this.filled ) {
       ctx.fillRect(
         this.position.x,
         this.position.y, 
@@ -123,17 +125,17 @@ export class Square extends Shape {
   }
 
   constructor (
-    side: number,
-    color: Color = undefined, 
-    position: Position2D = undefined, 
-    fill: boolean = true,
-    stroke?: Color,
+    side?: number,
+    color?: Color,
+    position?: Position2D,
+    filled: boolean = true,
+    stroke?: strokeType,
     noGrav: boolean = false 
   ) {
-    super(color, position, fill, stroke, noGrav)    
+    super(color, position, filled, stroke, noGrav)    
 
     this.side = side
-    this.fill = fill
+    this.filled = filled
   }
 }
 
@@ -143,9 +145,9 @@ export class Rectangle extends Shape {
 
   public render() {
     ctx.fillStyle = this.color.render
-    ctx.strokeStyle = this.stroke.render
+    ctx.strokeStyle = this.stroke.color.render
 
-    if (this.fill) {
+    if (this.filled) {
       ctx.fillRect(
         this.position.x,
         this.position.y,
@@ -161,16 +163,17 @@ export class Rectangle extends Shape {
       )
     }
   }
+
   constructor (
     width: number,
     height: number,
     color: Color = undefined, 
     position: Position2D = undefined, 
-    fill: boolean = true,
-    stroke?: Color,
+    filled: boolean = true,
+    stroke?: strokeType,
     noGrav: boolean = false
   ) {
-    super(color, position, fill, stroke, noGrav)    
+    super(color, position, filled, stroke, noGrav)    
 
     this.width = width
     this.height = height

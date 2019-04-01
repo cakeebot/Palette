@@ -1,1 +1,0 @@
-Compiler requires Browserify and TSify

@@ -7,7 +7,7 @@ export class Color {
 
   constructor (r: number, g: number, b: number) {
     if (r > 255 || g > 255 || b > 255) {
-      throw new Error("Color: Max value is 255!")
+      throw new Error('Color: Max value is 255!')
     } else {
       this.r = r
       this.g = g
