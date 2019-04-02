@@ -2,7 +2,7 @@ import { Position2D, Coords2D } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
-import { doSelfGravity } from '../Physics/Gravity'
+import { doSelfGravity } from '../Physics/gravity'
 import { ctx } from '../getCanvas';
 
 // Interfaces
