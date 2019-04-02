@@ -1,4 +1,5 @@
-#Palette
+# Palette
+
 Palette is a light typescript library for making 2D browser games. Using Palette, you can easily create good games that are light on resources.
 
 ### Installation
