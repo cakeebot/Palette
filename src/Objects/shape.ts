@@ -2,7 +2,7 @@ import { Position2D, Coords2D } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
-import { Util } from "../Utility/configtools"
+import { configTools } from "../Utility/configTools"
 import { doSelfGravity } from '../Physics/gravity'
 import { ctx } from '../getCanvas';
 
@@ -54,7 +54,7 @@ export abstract class Shape {
       y: undefined
     }
 
-    Util.deleteShape()
+    configTools.deleteShape(this.index)
   }
 
 
