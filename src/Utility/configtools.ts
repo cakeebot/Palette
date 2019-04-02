@@ -1,6 +1,6 @@
 import Config from '../config'
 
-export module Util {
+export module configTools {
   export function deleteShape(index): void {
     if (Config.engineSettings.doDeletedObjects) {
       Config.deletedObjects.push(Config.objects[index]);

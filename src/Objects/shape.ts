@@ -2,6 +2,7 @@ import { Position2D, Coords2D } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import Config from '../config';
+import { Util } from "../Utility/configtools"
 import { doSelfGravity } from '../Physics/gravity'
 import { ctx } from '../getCanvas';
 
@@ -25,10 +26,11 @@ export abstract class Shape {
   private index: number
   private exists: boolean = true
 
+
   doGravity: boolean = true
   doSelfGravity: boolean = true
 
-  gravityFactor: number[] = Config.gravity
+  gravityFactor: number[] = Config.gravity;
   
   position: Position2D
   velocity: Velocity2D = {
@@ -40,7 +42,7 @@ export abstract class Shape {
   // Inherited Functions
   update = function (): void {
     if (this.doGravity && this.doSelfGravity) {
-      doSelfGravity(this)
+      doSelfGravity(this);
     }
   }
   delete = function (): void {
@@ -52,8 +54,7 @@ export abstract class Shape {
       y: undefined
     }
 
-    Config.objects.splice(this.index, 1)
-    Config.deletedObjects.push(this)
+    Util.deleteShape()
   }
 
 
@@ -87,8 +88,6 @@ export abstract class Shape {
   /*
     STATIC VALUES
   */
-  
-
 }
 
 
@@ -97,9 +96,7 @@ export class Circle extends Shape {
   radius: number
   diameter: number
 
-  public render(): void {
-
-  }
+  public render(): void {}
   
   constructor (
     radius?: number,
@@ -109,7 +106,7 @@ export class Circle extends Shape {
     stroke?: StrokeType,
     noGrav: boolean = false
   ) {
-    super(color, filled, stroke, position, noGrav)    
+    super(position, color, filled, stroke, noGrav)    
 
     this.radius = radius
     this.diameter = radius * 2
@@ -148,7 +145,7 @@ export class Square extends Shape {
     stroke?: StrokeType,
     noGrav: boolean = false 
   ) {
-    super(color, filled, stroke, position, noGrav)    
+    super(position, color, filled, stroke, noGrav)    
 
     this.side = side
     this.filled = filled
