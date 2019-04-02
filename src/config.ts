@@ -6,7 +6,7 @@ module Config {
 
   export let gravity: number[] = []
 
-  module engineSettings {
+  export module engineSettings {
     export let doDeletedObjects: boolean = true // Save deleted objects to deletedObjects[]
   }
 }
