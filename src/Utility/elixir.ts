@@ -5,6 +5,7 @@
 
 export module types {
   export type VoidFunction = () => void
+  export type RenderFunction = (progress: number) => void
 }
 
 export module logic {

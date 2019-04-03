@@ -1,7 +1,7 @@
 import { Position2D, Coords2D } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
-import Config from '../config';
+import { Config } from '../config';
 import { configTools } from "../Utility/configTools"
 import { doSelfGravity } from '../Physics/gravity'
 import { ctx } from '../getCanvas';
@@ -39,7 +39,7 @@ export abstract class Shape {
 
 
   // Inherited Functions
-  shapeUpdate = function (): void {
+  shapeUpdate = function (progress: number): void {
     if (this.doGravity && this.doSelfGravity) {
       doSelfGravity(this);
     }
