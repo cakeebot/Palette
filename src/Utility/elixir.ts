@@ -4,6 +4,7 @@
 */
 
 export module types {
+  export type VoidFunction = () => void
 }
 
 export module logic {
@@ -55,11 +56,13 @@ export module logic {
 }
 
 export module loops {
-  export function runEach (array: any[]) {
+  export function runEach (array: any[]): any[] {
     let outputs: any[] = []
 
     array.forEach(element => {
       outputs.push(element())
     });
+
+    return outputs
   }
 }

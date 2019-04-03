@@ -5,7 +5,7 @@ function runAllUpdate (array: Shape[]): void {
   let i: number = 0
 
   for (i < array.length; i++;) {
-    array[i].update()
+    array[i].shapeUpdate()
   }
 }
 

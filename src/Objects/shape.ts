@@ -26,7 +26,6 @@ export abstract class Shape {
   private index: number
   private exists: boolean = true
 
-
   doGravity: boolean = true
   doSelfGravity: boolean = true
 
@@ -40,11 +39,12 @@ export abstract class Shape {
 
 
   // Inherited Functions
-  update = function (): void {
+  shapeUpdate = function (): void {
     if (this.doGravity && this.doSelfGravity) {
       doSelfGravity(this);
     }
   }
+
   delete = function (): void {
     this.color = undefined
     this.position = undefined
