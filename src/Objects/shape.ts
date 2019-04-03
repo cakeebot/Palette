@@ -1,4 +1,4 @@
-import { Position2D, Coords2D } from './vector';
+import { Position2D } from './vector';
 import { Color } from './color';
 import { Velocity2D } from '../Physics/velocity';
 import { Config } from '../config';
@@ -37,6 +37,8 @@ export abstract class Shape {
     y: 0
   }
 
+  // Function Types
+  public render (progress: number): void {}
 
   // Inherited Functions
   shapeUpdate = function (progress: number): void {
