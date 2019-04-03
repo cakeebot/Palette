@@ -52,7 +52,7 @@ export enum Key {
   NumpadAsterisk = 106,
   NumpadMinus = 109,
   NumpadPlus = 107,
-  NumpadDecimal = 110,
+  NumpadDot = 110,
 
   // Letters
   A = 65,
@@ -102,13 +102,13 @@ export enum Key {
 
 export module input {
 
-  export function registerOnKeypress (key: string,run: types.VoidFunction): void {
-    document.addEventListener('keypress',(event) =>{
-
+  export function registerOnKeypress (key: Key, run: types.VoidFunction): void {
+    document.addEventListener('keypress', (event) =>{
+      
     })
   }
 
-  export function registerOnKeypressCombo (key: string, run: types.VoidFunction): void {
+  export function registerOnKeypressCombo (keys: Key[], run: types.VoidFunction): void {
 
   }
 }
