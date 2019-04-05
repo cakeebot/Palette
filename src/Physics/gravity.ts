@@ -1,4 +1,4 @@
-import Config from '../config';
+import { Config } from '../config';
 import { Shape } from '../Objects/shape';
 
 export function doAllGravity (): void {

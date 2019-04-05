@@ -1,4 +1,4 @@
-import Config from '../config'
+import { Config } from '../config'
 
 export module configTools {
   export function deleteShape(index): void {
