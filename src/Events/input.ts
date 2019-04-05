@@ -1,4 +1,4 @@
-import { types } from "../Utility/elixir";
+import { types } from '../Utility/elixir';
 
 export enum Key {
   // Special Keys

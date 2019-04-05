@@ -1,4 +1,4 @@
-import { Shape } from "./Objects/shape";
+import { Shape } from './Objects/shape';
 
 export module Palette {
   export let renderProgress: number = 0

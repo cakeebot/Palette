@@ -1,5 +1,5 @@
-import { Shape } from "./Objects/shape";
-import { Config, Palette } from "./config";
+import { Shape } from './Objects/shape';
+import { Config, Palette } from './config';
 
 function runAllUpdate (array: Shape[]): void {
   let i: number = 0
