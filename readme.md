@@ -12,3 +12,4 @@ and [TSify](https://github.com/TypeStrong/tsify)
 #### To-Do:
 - Code Cleanup
 - Renderer
+- Scenes
