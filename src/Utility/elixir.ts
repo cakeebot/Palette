@@ -6,6 +6,10 @@
 export module types {
   export type VoidFunction = () => void
   export type RenderFunction = (progress: number) => void
+  export interface Size {
+    x: number
+    y: number
+  }
 }
 
 export module logic {
