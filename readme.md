@@ -13,3 +13,4 @@ and [TSify](https://github.com/TypeStrong/tsify)
 - Code Cleanup
 - Renderer
 - Scenes
+- Shape Effects
