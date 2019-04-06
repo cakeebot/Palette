@@ -5,6 +5,8 @@ import { Config } from '../config';
 import { configTools } from "../Utility/configTools"
 import { doSelfGravity } from '../Physics/gravity'
 import { ctx } from '../getCanvas';
+import { tags } from '../Utility/elixir'
+import { PaletteBasicObject } from '../Utility/object';
 
 // Interfaces
 export interface StrokeType {
@@ -13,7 +15,7 @@ export interface StrokeType {
 }
 
 // Shape Class
-export abstract class Shape {
+export abstract class Shape extends PaletteBasicObject {
   /*
     INHERITED ATTRIBUTES
   */
@@ -22,9 +24,6 @@ export abstract class Shape {
   color: Color
   stroke: StrokeType
   filled: boolean
-
-  private index: number
-  private exists: boolean = true
 
   doGravity: boolean = true
   doSelfGravity: boolean = true
@@ -68,6 +67,8 @@ export abstract class Shape {
     stroke?: StrokeType, 
     noGrav: boolean = false
   ) {
+    super()
+
     this.color = color
     this.position = position
 
