@@ -23,6 +23,13 @@ class InputKey {
       this.togglePressed(key)
     })
   }
+
+  constructor (keyCode: number, key: string) {
+    this.keyCode = keyCode
+    this.key = key
+
+    this.addListeners()
+  }
 }
 
 export enum Key {
