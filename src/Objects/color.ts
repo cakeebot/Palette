@@ -5,15 +5,15 @@ export class Color {
 
   render: string
 
-  constructor (r: number, g: number, b: number) {
-    if (r > 255 || g > 255 || b > 255) {
+  constructor (r: number, g: number, b: number, a: number = 0) {
+    if (r > 255 || g > 255 || b > 255 || a > 255) {
       throw new Error('Color: Max value is 255!')
     } else {
       this.r = r
       this.g = g
       this.b = b
 
-      this.render = `rgb(${r},${g},${b})`
+      this.render = `rgba(${r},${g},${b}, ${a})`
     }
   }
 
