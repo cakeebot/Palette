@@ -1,9 +1,34 @@
 import { types } from '../Utility/elixir';
 
+class InputKey {
+  keyCode: number
+  key: string
+
+  pressedDown: boolean = false
+
+  private togglePressed(key: Event): void {
+    if (this.pressedDown) {
+      this.pressedDown = false
+    } else {
+      this.pressedDown = true
+    }
+  }
+
+  public addListeners () {
+    document.addEventListener('keydown', (key: KeyboardEvent) => {
+      this.togglePressed(key)
+    })
+    
+    document.addEventListener('keyup', (key: KeyboardEvent) => {
+      this.togglePressed(key)
+    })
+  }
+}
+
 export enum Key {
   // Special Keys
   Ctrl = 17,
-  Win = 91,
+  Meta = 91,
   Alt = 18,
   Shift = 16,
   Capslock = 20,
@@ -104,7 +129,9 @@ export module input {
 
   export function registerOnKeypress (key: Key, run: types.VoidFunction): void {
     document.addEventListener('keypress', (event) =>{
-      
+      if ( event.keyCode == key ) {
+        run()
+      }
     })
   }
 
