@@ -14,3 +14,4 @@ and [TSify](https://github.com/TypeStrong/tsify)
 - Renderer
 - Scenes
 - Shape Effects
+- Input management
