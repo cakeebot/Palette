@@ -1,16 +1,16 @@
-import { types } from '../Utility/elixir';
-
 class InputKey {
   keyCode: number
   key: string
 
   pressedDown: boolean = false
 
-  private togglePressed(key: Event): void {
-    if (this.pressedDown) {
-      this.pressedDown = false
-    } else {
-      this.pressedDown = true
+  private togglePressed(key: KeyboardEvent): void {
+    if (key.keyCode == this.keyCode) {
+      if (this.pressedDown) {
+        this.pressedDown = false
+      } else {
+        this.pressedDown = true
+      }
     }
   }
 
@@ -29,6 +29,37 @@ class InputKey {
     this.key = key
 
     this.addListeners()
+  }
+}
+
+type InputFunction = (key: InputKey, args?: any[]) => void
+
+class InputKeybind {
+  run: InputFunction
+  runArgs: any[]
+  
+  key: InputKey
+
+  onePress: boolean
+  private activated: boolean = false
+
+  public checkKeybind () {
+    if (this.onePress) {
+      if (!this.activated && this.key.pressedDown) {
+        this.run(this.key, this.runArgs)
+        this.activated = true
+      } else if (this.activated && this.key.pressedDown) {
+        this.activated = false
+      }
+    } else if (this.key.pressedDown) {
+      this.run(this.key, this.runArgs)
+    }
+  }
+
+  constructor (key: InputKey, run: InputFunction, onePress: boolean) {
+    this.key = key
+    this.run = run
+    this.onePress = onePress
   }
 }
 
@@ -131,4 +162,16 @@ export const Key = {
 
   Minus: new InputKey(173, '- '),
   Equal: new InputKey(61, '='),
+}
+
+export module Input {
+  export let keybinds: InputKeybind[]
+
+  export function registerKeybind (key: InputKey, run: InputFunction) {
+    
+  }
+
+  export function checkKeybinds () {
+
+  }
 }
