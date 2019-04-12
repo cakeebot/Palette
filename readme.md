@@ -10,8 +10,8 @@ and [TSify](https://github.com/TypeStrong/tsify)
 >`npm install -g tsify`
 
 #### To-Do:
+- **Renderer**
 - Code Cleanup
-- Renderer
 - Scenes
 - Shape Effects
 - Input management
