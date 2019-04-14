@@ -1,48 +1,39 @@
-import { MainWindow } from './createWindow';
-import { isUndefined } from 'util';
-
-export module page {
-  export function load (path: string): void {
-    MainWindow.loadFile(path)
-  }
-
-  export function setTitle (title: string): void {
-
+function ifDocumentExists (run: Function): void {
+  if (!document == undefined) {
+    run()
   }
 }
 
-export module MainDocument {
-  function ifDocumentExists (run: Function): void {
-    if (!isUndefined(document)) {
-      run()
-    }
-  }
+export class Page {
+  path: string
 
-  export module addTo {
-    export function head (elements: string[]): void {
+
+  // Add to Documents
+  readonly addTo = {
+    head: function (elements: string[]): void {
       ifDocumentExists(()=>
         elements.forEach((element)=>{
           document.head.insertAdjacentHTML('beforeend', element)
         })
       )
-    }
-    export function body (elements: string[]): void {
+    },
+    body: function (elements: string[]): void {
       ifDocumentExists(()=>
         elements.forEach((element)=>{
           document.body.insertAdjacentHTML('beforeend', element)
         })
       )
-    }
+    },
 
-    export module element { 
-      export function ID (id: string, elements: string[]): void {
+    element: { 
+      ID: function (id: string, elements: string[]): void {
         ifDocumentExists(()=>
           elements.forEach((element)=>{
             document.getElementById(id).insertAdjacentHTML('beforeend', element)
           })
         )
-      }
-      export function Class (Class: string, elements: string[]): void {
+      },
+      Class: function (Class: string, elements: string[]): void {
         ifDocumentExists(()=>
           elements.forEach((element)=>{
             const classMembers = document.getElementsByClassName(Class)
