@@ -1,5 +1,4 @@
 import { Menu, app, BrowserWindow } from 'electron'
-import * as path from 'path'
 
 interface WindowSize {
   w: number
@@ -28,7 +27,7 @@ export module WindowSettings {
 
 }
 
-export function createWindow () {
+export function createMainWindow () {
   // Override window config
   WindowSettings.windowConfig.fullscreen = WindowSettings.fullscreen
 
@@ -48,7 +47,7 @@ export function createWindow () {
 }
 
 export function startApp () {
-  app.on('ready', createWindow)
+  app.on('ready', createMainWindow)
   app.on('quit', () => {
     if (process.platform != 'darwin') {
       app.quit()
@@ -56,7 +55,7 @@ export function startApp () {
   })
   app.on('activate', ()=> {
     if (MainWindow == null) {
-      createWindow()
+      createMainWindow()
     }
   })
 }
