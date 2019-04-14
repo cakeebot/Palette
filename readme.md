@@ -11,6 +11,7 @@ and [TSify](https://github.com/TypeStrong/tsify)
 
 #### To-Do:
 - **Renderer**
+- **Window System**
 - Code Cleanup
 - Scenes
 - Shape Effects
