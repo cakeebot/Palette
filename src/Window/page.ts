@@ -7,7 +7,6 @@ function ifDocumentExists (run: Function): void {
 export class Page {
   path: string
 
-
   // Add to Documents
   readonly addTo = {
     head: function (elements: string[]): void {
