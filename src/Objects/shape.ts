@@ -4,7 +4,7 @@ import { Velocity2D } from '../Physics/velocity';
 import { Config } from '../config';
 import { configTools } from "../Utility/configTools"
 import { doSelfGravity } from '../Physics/gravity'
-import { ctx } from '../getCanvas';
+import { ctx } from '../Render/getCanvas';
 import { tags } from '../Utility/elixir'
 import { PaletteBasicObject } from '../Utility/object';
 
