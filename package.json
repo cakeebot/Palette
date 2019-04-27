@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Typescript Game Engine",
   "main": "compile.js",
-  "dependencies": {},
+  "dependencies": {
+    "matter-js": "^0.14.2"
+  },
   "devDependencies": {
+    "@types/matter-js": "^0.10.2",
     "@types/node": "^11.13.4",
     "electron": "^4.1.4"
   },
