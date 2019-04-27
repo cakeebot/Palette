@@ -3,6 +3,14 @@
   used in Palette and can be used by Palette games.
 */
 
+export function setIfDefined (newVal: any, defaultVal?: any): any {
+  if (typeof newVal != undefined) {
+    return newVal
+  } else {
+    return defaultVal
+  }
+}
+
 export module tags {
   export interface TagHolder {
     tags: Tag[]
