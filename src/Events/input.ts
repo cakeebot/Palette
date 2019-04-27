@@ -41,19 +41,21 @@ class InputKeybind {
   key: InputKey
 
   onePress: boolean
-  private activated: boolean = false
+  private triggered: boolean = false
 
-  public checkKeybind () {
-    if (this.onePress) {
-      if (!this.activated && this.key.pressedDown) {
-        this.run(this.key, this.runArgs)
-        this.activated = true
-      } else if (this.activated && this.key.pressedDown) {
-        this.activated = false
-      }
-    } else if (this.key.pressedDown) {
-      this.run(this.key, this.runArgs)
+  private callbackCheck (args: any[]) {
+    // Update triggered status
+    if (this.key.pressedDown && !this.triggered ) {
+      this.triggered = true
+    } else if (!this.key.pressedDown && this.triggered) {
+      this.triggered = false
     }
+
+    // C
+  }
+
+  public activate () {
+    setInterval(this.callbackCheck, 50, this.runArgs) 
   }
 
   constructor (key: InputKey, run: InputFunction, onePress: boolean) {
@@ -167,11 +169,7 @@ export const Key = {
 export module Input {
   export let keybinds: InputKeybind[]
 
-  export function registerKeybind (key: InputKey, run: InputFunction) {
-    
-  }
-
-  export function checkKeybinds () {
-
+  export function registerKeybind (key: InputKey, run: InputFunction, onePress: boolean = true) {
+    let keybind: InputKeybind = new InputKeybind(key, run, onePress)
   }
 }
