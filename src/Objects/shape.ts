@@ -1,12 +1,11 @@
-import { Position2D } from './vector';
+import { Position2D, Velocity2D } from './vector';
 import { Color } from './color';
-import { Velocity2D } from '../Physics/velocity';
 import { Config } from '../config';
 import { configTools } from "../Utility/configTools"
-import { doSelfGravity } from '../Physics/gravity'
 import { ctx } from '../Render/getCanvas';
-import { tags } from '../Utility/elixir'
-import { PaletteBasicObject } from '../Utility/object';
+import { PaletteBasicObject } from './../Utility/object';
+
+import { Body, Bodies } from 'matter-js';
 
 // Interfaces
 export interface StrokeType {
@@ -17,36 +16,125 @@ export interface StrokeType {
 // Shape Class
 export abstract class Shape extends PaletteBasicObject {
   /*
-    INHERITED ATTRIBUTES
+    Attributes
   */
 
-  // Attributes
-  color: Color
-  stroke: StrokeType
-  filled: boolean
+  private objBodyInstance: Body
+  private objID: number
 
-  doGravity: boolean = true
-  doSelfGravity: boolean = true
+  private objColor: Color
+  private objStroke: StrokeType
+  private objFilled: boolean
 
-  gravityFactor: number[] = Config.gravity;
+  private objIsStatic: boolean = false
+  private objDoGravity: boolean = true
   
-  position: Position2D
-  velocity: Velocity2D = {
+  private objPosition: Position2D
+  private objVelocity: Velocity2D = {
     x: 0,
     y: 0
   }
 
-  // Function Types
-  public render (progress: number): void {}
+  /*
+    Getters + Setters
+  */
 
-  // Inherited Functions
-  shapeUpdate = function (progress: number): void {
-    if (this.doGravity && this.doSelfGravity) {
-      doSelfGravity(this);
-    }
+  // Body
+  get bodyInstance (): Body {
+    this.objBodyInstance = this.getBody()
+
+    return this.objBodyInstance
   }
 
-  delete = function (): void {
+  // ID
+  get id (): number {
+    return this.objID
+  }
+
+  // Color
+  get color (): Color {
+    return this.objColor
+  }
+  set color (newColor: Color) {
+    this.objColor = newColor
+
+    this.getBody().render.fillStyle = this.objColor.render
+  }
+
+  // Stroke
+  get stroke (): StrokeType {
+    return this.objStroke
+  }
+  set stroke (newStroke: StrokeType) {
+    this.objStroke = newStroke
+    
+    this.getBody().render.lineWidth = newStroke.width
+    this.getBody().render.strokeStyle = newStroke.color.render
+  }
+
+  // Filled
+  get filled (): boolean {
+    return this.objFilled
+  }
+
+  // isStatic
+  get isStatic (): boolean {
+    return this.isStatic
+  }
+  set isStatic (newStatic: boolean) {
+    Body.setStatic(this.getBody(), newStatic)
+
+    this.isStatic = newStatic
+  }
+
+  // Do Gravity
+  get doGravity (): boolean {
+    return this.objDoGravity
+  }
+  set doGravity (newDoGravity: boolean) {
+    this.objDoGravity = newDoGravity
+  }
+
+  // Position
+  get position (): Position2D {
+    this.objPosition.x = this.getBody().position.x
+    this.objPosition.y = this.getBody().position.y
+
+    return this.objPosition
+  }
+  set position (newPos: Position2D) {
+    Body.setPosition(this.getBody(), newPos)
+  }
+
+  // Velocity
+  get velocity (): Velocity2D {
+    this.objVelocity = this.getBody().velocity
+
+    return this.objVelocity
+  }
+  set velocity (newVelocity: Velocity2D) {
+    Body.setVelocity(this.getBody(), newVelocity)
+
+    this.objVelocity = newVelocity
+  }
+
+
+  /* 
+    Methods
+  */
+  
+  protected getBody (): Body {
+    
+  }
+
+  protected createObj (bodyInstance: Body) {
+    this.objID = bodyInstance.id
+
+  }
+
+
+  // Object management functions
+  public delete (): void {
     this.color = undefined
     this.position = undefined
     this.exists = false
@@ -74,23 +162,12 @@ export abstract class Shape extends PaletteBasicObject {
 
     this.filled = filled
     
-    if ( !noGrav ) {
-      this.doGravity = false
-      this.doSelfGravity = false
-    } else {
-      this.doGravity = true
-      this.doSelfGravity = true
-    }
+    this.doGravity = !noGrav
 
     Config.objects.push(this)
+
     this.index = Config.objects.indexOf(this)
   }
-
-
-
-  /*
-    STATIC VALUES
-  */
 }
 
 
@@ -151,7 +228,6 @@ export class Square extends Shape {
     super(position, color, filled, stroke, noGrav)    
 
     this.side = side
-    this.filled = filled
   }
 }
 
