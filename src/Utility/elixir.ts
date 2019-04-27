@@ -24,6 +24,8 @@ export module types {
     x: number
     y: number
   }
+  
+  export type searchType = 'body' | 'constraint' | 'composite'
 }
 
 export module array {
