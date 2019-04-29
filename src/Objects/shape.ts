@@ -5,7 +5,7 @@ import { configTools } from "../Config/configTools"
 import { PaletteBasicObject } from './../Utility/object'
 import { setIfDefined } from './../Utility/elixir';
 
-import { Body } from 'matter-js';
+import { Body, IBodyDefinition } from 'matter-js';
 
 // Interfaces
 export interface StrokeType {
@@ -64,12 +64,31 @@ class ShapeConstructorOutput {
   }
 }
 
+// Other functions
+export function createMatterBodyArgs (args: ShapeConstructorOutput): IBodyDefinition {
+  return {
+    render: {
+      fillStyle: args.color.render,
+
+      strokeStyle: args.stroke.color.render,
+      lineWidth: args.stroke.width
+    },
+
+    isStatic: args.isStatic,
+
+    velocity: args.velocity,
+    position: args.position
+  }
+}
+
 
 // Shape Class
 export abstract class Shape extends PaletteBasicObject {
   /*
     Attributes
   */
+
+  protected matterBodyArgs: IBodyDefinition
 
   private objBodyInstance: Body
   private objID: number
@@ -219,9 +238,9 @@ export abstract class Shape extends PaletteBasicObject {
   public static getConstructorArgs (args: ShapeConstructorArgs): ShapeConstructorOutput {
     return new ShapeConstructorOutput ({
       render: {
-        color: new Color (0, 0, 0),
+        color: Color.black,
         stroke: {
-          color: new Color (0, 0, 0),
+          color: Color.black,
           width: 0
         },
         filled: true
@@ -246,23 +265,25 @@ export abstract class Shape extends PaletteBasicObject {
 
   // Constructor
   constructor (
-    position?: Position2D,
-    color?: Color,
-    filled: boolean = true,
-    stroke?: StrokeType, 
-    noGrav: boolean = false
+    args?: ShapeConstructorArgs
   ) {
     super()
+    const argOutput: ShapeConstructorOutput = Shape.getConstructorArgs(args)
 
-    this.color = color
-    this.position = position
+    this.color = argOutput.color
+    this.stroke = argOutput.stroke
+    this.filled = argOutput.filled
 
-    this.filled = filled
+    this.isStatic = argOutput.isStatic
+    this.doGravity = argOutput.doGravity
+
+    this.position = argOutput.position
+    this.velocity = argOutput.velocity
     
-    this.doGravity = !noGrav
-
-    Config.objects.push(this)
-
-    this.index = Config.objects.indexOf(this)
+    this.matterBodyArgs = createMatterBodyArgs(argOutput)
   }
+}
+
+export interface ShapeClassChild extends Shape {
+  create: VoidFunction
 }
