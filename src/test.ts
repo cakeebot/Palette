@@ -1,7 +1,7 @@
 import { Shape } from "./Objects/shape";
 import { Color, colors } from "./Objects/color";
 import { Position2D } from "./Objects/vector";
-import Config from "./config";
+import Config from "./Config/config";
 import { Circle } from "./Objects/shape";
 
 const testShape = new Shape(colors.blue, new Position2D(300, 200))

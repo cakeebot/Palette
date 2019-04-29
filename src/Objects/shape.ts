@@ -1,16 +1,20 @@
 import { Position2D, Velocity2D } from './vector';
 import { Color } from './color';
-import { Config } from '../config';
-import { configTools } from "../Utility/configTools"
+import { Config } from '../Config/config';
+import { configTools } from "../Config/configTools"
 import { ctx } from '../Render/getCanvas';
 import { PaletteBasicObject } from './../Utility/object';
 
-import { Body, Bodies } from 'matter-js';
+import { Body } from 'matter-js';
 
 // Interfaces
 export interface StrokeType {
   color: Color
   width: number
+}
+
+export interface ShapeConstructorArgs {
+
 }
 
 // Shape Class
@@ -76,6 +80,11 @@ export abstract class Shape extends PaletteBasicObject {
   get filled (): boolean {
     return this.objFilled
   }
+  set filled (newFilled: boolean) {
+    this.objFilled = newFilled
+
+    this.getBody().render.strokeStyle
+  }
 
   // isStatic
   get isStatic (): boolean {
@@ -123,13 +132,13 @@ export abstract class Shape extends PaletteBasicObject {
     Methods
   */
   
-  protected getBody (): Body {
+  protected  getBody (): Body {
     
   }
 
   protected createObj (bodyInstance: Body) {
     this.objID = bodyInstance.id
-
+    this.objBodyInstance = bodyInstance
   }
 
 
@@ -168,111 +177,4 @@ export abstract class Shape extends PaletteBasicObject {
 
     this.index = Config.objects.indexOf(this)
   }
-}
-
-
-// Basic Shapes
-export class Circle extends Shape {
-  radius: number
-  diameter: number
-
-  public render(): void {}
-  
-  constructor (
-    radius?: number,
-    position?: Position2D,
-    color?: Color,
-    filled: boolean = true,
-    stroke?: StrokeType,
-    noGrav: boolean = false
-  ) {
-    super(position, color, filled, stroke, noGrav)    
-
-    this.radius = radius
-    this.diameter = radius * 2
-  }
-}
-
-export class Square extends Shape {
-  side: number
-
-  public render(): void {
-    ctx.fillStyle = this.color.render
-    ctx.strokeStyle = this.stroke.color.render
-
-    if( this.filled ) {
-      ctx.fillRect(
-        this.position.x,
-        this.position.y, 
-        this.side, 
-        this.side
-      )
-    } else {
-      ctx.strokeRect(
-        this.position.x,
-        this.position.y,
-        this.side,
-        this.side
-      )
-    }
-  }
-
-  constructor (
-    side?: number,
-    position?: Position2D,
-    color?: Color,
-    filled: boolean = true,
-    stroke?: StrokeType,
-    noGrav: boolean = false 
-  ) {
-    super(position, color, filled, stroke, noGrav)    
-
-    this.side = side
-  }
-}
-
-export class Rectangle extends Shape {
-  width: number
-  height: number
-
-  public render() {
-    ctx.fillStyle = this.color.render
-    ctx.strokeStyle = this.stroke.color.render
-
-    if (this.filled) {
-      ctx.fillRect(
-        this.position.x,
-        this.position.y,
-        this.width,
-        this.height
-      )
-    } else {
-      ctx.strokeRect(
-        this.position.x,
-        this.position.y,
-        this.width,
-        this.height
-      )
-    }
-  }
-
-  constructor (
-    width?: number,
-    height?: number,
-    position?: Position2D,
-    color?: Color,
-    filled: boolean = true,
-    stroke?: StrokeType,
-    noGrav: boolean = false
-  ) {
-    super(position, color, filled, stroke, noGrav)    
-
-    this.width = width
-    this.height = height
-  }
-}
-
-export class Triangle extends Shape {
-  base: number
-  height: number
 }
