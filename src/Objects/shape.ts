@@ -1,9 +1,9 @@
-import { Position2D, Velocity2D } from './vector';
-import { Color } from './color';
-import { Config } from '../Config/config';
+import { Position2D, Velocity2D, pos2D, vel2D } from './vector'
+import { Color } from './color'
+import { Config, Palette } from '../Config/config'
 import { configTools } from "../Config/configTools"
-import { ctx } from '../Render/getCanvas';
-import { PaletteBasicObject } from './../Utility/object';
+import { PaletteBasicObject } from './../Utility/object'
+import { setIfDefined } from './../Utility/elixir';
 
 import { Body } from 'matter-js';
 
@@ -14,8 +14,56 @@ export interface StrokeType {
 }
 
 export interface ShapeConstructorArgs {
+  render: {
+    color?: Color
+    stroke?: StrokeType
+    filled?: boolean
+  }
 
+  isStatic: boolean
+  doGravity: boolean
+
+  position: Position2D
+  velocity: Velocity2D
 }
+
+// Other Classes
+class ShapeConstructorOutput {
+  color: Color
+  stroke: StrokeType
+  filled: boolean
+
+  isStatic: boolean
+  doGravity: boolean
+
+  position: Position2D
+  velocity: Velocity2D
+
+  constructor(
+    defaults: ShapeConstructorArgs,
+
+    color?: Color,
+    stroke?: StrokeType,
+    filled?: boolean,
+
+    isStatic?: boolean,
+    doGravity?: boolean,
+    
+    position?: Position2D, 
+    velocity?: Velocity2D
+  ) {
+    this.color = setIfDefined(color, defaults.render.color)
+    this.stroke = setIfDefined(stroke, defaults.render.stroke)
+    this.filled = setIfDefined(filled, defaults.render.filled)
+
+    this.isStatic = setIfDefined(isStatic, defaults.isStatic)
+    this.doGravity = setIfDefined(doGravity, defaults.doGravity)
+
+    this.position = setIfDefined(position, defaults.position)
+    this.velocity = setIfDefined(velocity, defaults.velocity)
+  }
+}
+
 
 // Shape Class
 export abstract class Shape extends PaletteBasicObject {
@@ -33,7 +81,10 @@ export abstract class Shape extends PaletteBasicObject {
   private objIsStatic: boolean = false
   private objDoGravity: boolean = true
   
-  private objPosition: Position2D
+  private objPosition: Position2D = {
+    x: 0,
+    y: 0
+  }
   private objVelocity: Velocity2D = {
     x: 0,
     y: 0
@@ -113,6 +164,8 @@ export abstract class Shape extends PaletteBasicObject {
   }
   set position (newPos: Position2D) {
     Body.setPosition(this.getBody(), newPos)
+
+    this.objPosition = newPos
   }
 
   // Velocity
@@ -133,7 +186,11 @@ export abstract class Shape extends PaletteBasicObject {
   */
   
   protected  getBody (): Body {
-    
+    const find = Palette.mainWorld.getBy.id(this.id)
+
+    if (find instanceof Body) {
+      return find
+    }
   }
 
   protected createObj (bodyInstance: Body) {
@@ -153,6 +210,37 @@ export abstract class Shape extends PaletteBasicObject {
     }
 
     configTools.deleteShape(this.index)
+  }
+
+  /*
+    Static Values
+  */
+
+  public static getConstructorArgs (args: ShapeConstructorArgs): ShapeConstructorOutput {
+    return new ShapeConstructorOutput ({
+      render: {
+        color: new Color (0, 0, 0),
+        stroke: {
+          color: new Color (0, 0, 0),
+          width: 0
+        },
+        filled: true
+      },
+
+      isStatic: false,
+      doGravity: true,
+
+      position: pos2D(0, 0),
+      velocity: vel2D(0, 0)
+    },
+    args.render.color,
+    args.render.stroke,
+    args.render.filled,
+    args.isStatic,
+    args.doGravity,
+    args.position,
+    args.velocity
+    )
   }
 
 
