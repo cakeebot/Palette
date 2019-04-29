@@ -1,11 +1,8 @@
-import { Shape } from '../Objects/shape';
+import { Shape } from '../Objects/shape'
+import { PaletteWorld } from './../Game/world'
 
 export module Palette {
-  export let renderProgress: number = 0
-
-  export module Render {
-    export let lastRender: number = 0
-  }
+  export let mainWorld: PaletteWorld
 }
 
 export module Config {
